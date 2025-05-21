@@ -20,23 +20,22 @@ type Props = {
 const Navbar = ({ className }: Props) => {
   return (
     <header className={cn("sticky top-0 z-50 px-4 pb-4", className)}>
-      <div className="fade-bottom bg-background/15 absolute left-0 h-24 w-full backdrop-blur-lg"></div>
-      <div className="relative mx-auto max-w-7xl">
+      <div className="mx-auto max-w-7xl">
         <nav
           data-slot="navbar"
-          className="items-center, flex justify-between py-4"
+          className="flex items-center justify-between py-4"
         >
           <nav
             data-slot="navbar-left"
-            className="justify-start, flex items-center gap-4"
+            className="flex items-center justify-start gap-4"
           >
             <Link href="/">
               <Logo />
             </Link>
             <NavigationMenu className="ml-10">
-              <NavigationMenuList className="flex items-center gap-5">
+              <NavigationMenuList className="">
                 <NavigationMenuItem>
-                  <Link href="">
+                  <Link href="" passHref>
                     <NavigationMenuLink
                       className={navigationMenuTriggerStyle()}
                     >
@@ -53,13 +52,21 @@ const Navbar = ({ className }: Props) => {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <Link href="">
+                  <Link href="" passHref>
                     <NavigationMenuLink
                       className={navigationMenuTriggerStyle()}
                     >
                       Contact me
                     </NavigationMenuLink>
                   </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger>Other dropdown</NavigationMenuTrigger>
+                  <NavigationMenuContent className="p-6 md:w-[400px] lg:w-[500px]">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Expedita sint nam aspernatur placeat corrupti. Dicta totam
+                    deserunt corporis doloremque ab.
+                  </NavigationMenuContent>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
