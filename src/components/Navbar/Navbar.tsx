@@ -12,6 +12,11 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "../ui/navigation-menu";
+import {
+  CircleUserRoundIcon,
+  MessageSquareCodeIcon,
+  PresentationIcon,
+} from "lucide-react";
 
 type Props = {
   className?: string;
@@ -37,14 +42,27 @@ const Navbar = ({ className }: Props) => {
                 <NavigationMenuItem>
                   <Link href="" passHref>
                     <NavigationMenuLink
-                      className={navigationMenuTriggerStyle()}
+                      className={cn(
+                        "flex-row items-center gap-1",
+                        navigationMenuTriggerStyle(),
+                      )}
                     >
-                      About me
+                      <CircleUserRoundIcon
+                        size={20}
+                        className="text-muted-foreground size-5"
+                      />
+                      <span>About me</span>
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>My projects</NavigationMenuTrigger>
+                  <NavigationMenuTrigger className="flex-row items-center gap-1">
+                    <PresentationIcon
+                      size={20}
+                      className="text-muted-foreground size-5"
+                    />
+                    <span>My projects</span>
+                  </NavigationMenuTrigger>
                   <NavigationMenuContent className="p-6 md:w-[400px] lg:w-[500px]">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                     Expedita sint nam aspernatur placeat corrupti. Dicta totam
@@ -54,9 +72,16 @@ const Navbar = ({ className }: Props) => {
                 <NavigationMenuItem>
                   <Link href="" passHref>
                     <NavigationMenuLink
-                      className={navigationMenuTriggerStyle()}
+                      className={cn(
+                        "flex-row items-center gap-1",
+                        navigationMenuTriggerStyle(),
+                      )}
                     >
-                      Contact me
+                      <MessageSquareCodeIcon
+                        size={20}
+                        className="text-muted-foreground size-5"
+                      />
+                      <span>Contact me</span>
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
