@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import React from "react";
-import DarkModeToggle from "./DarkModeToggle";
-import Logo from "./Logo";
+import DarkModeToggle from "../DarkModeToggle/DarkModeToggle";
+import Logo from "../Logo/Logo";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -11,7 +11,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "./ui/navigation-menu";
+} from "../ui/navigation-menu";
 
 type Props = {
   className?: string;
