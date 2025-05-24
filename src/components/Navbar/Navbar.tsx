@@ -24,7 +24,7 @@ type Props = {
 
 const Navbar = ({ className }: Props) => {
   return (
-    <header className={cn("sticky top-0 z-50 px-4 pb-4", className)}>
+    <header className={cn("fixed top-0 z-50 w-full px-4 pb-4", className)}>
       <div className="mx-auto max-w-7xl">
         <nav
           data-slot="navbar"
