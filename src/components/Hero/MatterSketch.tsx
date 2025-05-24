@@ -47,9 +47,15 @@ const MatterSketch = () => {
       boxes.push(box);
     }
 
-    const ground = Bodies.rectangle(0, debouncedHeight, debouncedWidth * 2, 1, {
-      isStatic: true,
-    });
+    const ground = Bodies.rectangle(
+      0,
+      debouncedHeight - 10,
+      debouncedWidth * 2,
+      1,
+      {
+        isStatic: true,
+      },
+    );
 
     Composite.add(engine.world, [...boxes, ground]);
 
