@@ -1,6 +1,26 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
+}
+
+export function scale(
+  num: number,
+  in_min: number,
+  in_max: number,
+  out_min: number,
+  out_max: number,
+) {
+  return ((num - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min;
+}
+
+export function random(params: { min?: number; max: number } | undefined) {
+  if (!params) return Math.random();
+
+  const { min, max } = params;
+
+  if (min === undefined) return Math.random() * max;
+
+  return Math.random() * (max - min) + min;
 }
