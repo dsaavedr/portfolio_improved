@@ -37,14 +37,14 @@ const BgSketch = ({ particles = 40 }: Params) => {
         window.matchMedia("(prefers-color-scheme: dark)").matches
       ) {
         bg = dark;
-        stroke = "lightgray";
+        stroke = "#444";
       } else {
         bg = light;
-        stroke = "gray";
+        stroke = "#bbb";
       }
     } else {
       bg = theme === "dark" ? dark : light;
-      stroke = theme === "dark" ? "lightgray" : "gray";
+      stroke = theme === "dark" ? "#444" : "#ccc";
     }
     setCanvasBg(bg);
     setStrokeColor(stroke);
