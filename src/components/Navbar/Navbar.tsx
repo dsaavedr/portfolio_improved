@@ -13,10 +13,17 @@ import {
   navigationMenuTriggerStyle,
 } from "../ui/navigation-menu";
 import {
+  ChevronRightIcon,
   CircleUserRoundIcon,
+  MenuIcon,
   MessageSquareCodeIcon,
   PresentationIcon,
 } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { Button } from "../ui/button";
+import { Collapsible, CollapsibleContent } from "../ui/collapsible";
+import { CollapsibleTrigger } from "@radix-ui/react-collapsible";
+import { DialogTitle } from "@radix-ui/react-dialog";
 
 type Props = {
   className?: string;
@@ -24,11 +31,60 @@ type Props = {
 
 const Navbar = ({ className }: Props) => {
   return (
-    <header className={cn("fixed top-0 z-50 w-full px-4 pb-4", className)}>
-      <div className="mx-auto max-w-7xl">
+    <header className={className}>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant="outline" size="icon" className="mt-5 ml-5 lg:hidden">
+            <MenuIcon className="h-6 w-6" />
+            <span className="sr-only">Toggle navigation menu</span>
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="top">
+          <DialogTitle id="mobile-nav-title" className="sr-only">
+            Navigation menu
+          </DialogTitle>
+          <div className="flex w-full justify-between px-7 pt-7 pb-3">
+            <Link href="/">
+              <Logo />
+            </Link>
+            <DarkModeToggle />
+          </div>
+          <nav className="flex flex-col gap-2 px-4 py-6">
+            <Link href="#" className="nav-link">
+              Home
+            </Link>
+            <Link href="#" className="nav-link">
+              About me
+            </Link>
+            <Link href="#" className="nav-link">
+              My projects
+            </Link>
+            <Collapsible className="grid gap-2">
+              <CollapsibleTrigger className="nav-link [&[data-state=open]>svg]:rotate-90">
+                Dropdown
+                <ChevronRightIcon className="ml-auto h-5 w-5 transition-all" />
+              </CollapsibleTrigger>
+              <CollapsibleContent aria-describedby="mobile-nav-title">
+                <div className="bg-accent -mx-6 grid gap-2 p-6">
+                  <Link className="nav-link" href="#">
+                    Link 1
+                  </Link>
+                  <Link className="nav-link" href="#">
+                    Link 2
+                  </Link>
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
+            <Link href="#" className="nav-link">
+              Contact me
+            </Link>
+          </nav>
+        </SheetContent>
+      </Sheet>
+      <div className="fixed top-0 z-50 hidden w-full px-4 pb-4 lg:block">
         <nav
           data-slot="navbar"
-          className="flex items-center justify-between py-4"
+          className="mx-auto flex max-w-7xl items-center justify-between py-4"
         >
           <nav
             data-slot="navbar-left"
@@ -38,25 +94,23 @@ const Navbar = ({ className }: Props) => {
               <Logo />
             </Link>
             <NavigationMenu className="ml-10">
-              <NavigationMenuList className="">
+              <NavigationMenuList className="gap-2">
                 <NavigationMenuItem>
-                  <Link href="" passHref>
-                    <NavigationMenuLink
-                      className={cn(
-                        "flex-row items-center gap-1",
-                        navigationMenuTriggerStyle(),
-                      )}
-                    >
+                  <NavigationMenuLink
+                    asChild
+                    className={cn(navigationMenuTriggerStyle(), "bg-accent")}
+                  >
+                    <Link href="#" className="flex flex-row items-center gap-1">
                       <CircleUserRoundIcon
                         size={20}
                         className="text-muted-foreground size-5"
                       />
                       <span>About me</span>
-                    </NavigationMenuLink>
-                  </Link>
+                    </Link>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="flex-row items-center gap-1">
+                  <NavigationMenuTrigger className="bg-accent flex-row items-center gap-1">
                     <PresentationIcon
                       size={20}
                       className="text-muted-foreground size-5"
@@ -70,23 +124,23 @@ const Navbar = ({ className }: Props) => {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <Link href="" passHref>
-                    <NavigationMenuLink
-                      className={cn(
-                        "flex-row items-center gap-1",
-                        navigationMenuTriggerStyle(),
-                      )}
-                    >
+                  <NavigationMenuLink
+                    asChild
+                    className={cn(navigationMenuTriggerStyle(), "bg-accent")}
+                  >
+                    <Link href="#" className="flex flex-row items-center gap-1">
                       <MessageSquareCodeIcon
                         size={20}
                         className="text-muted-foreground size-5"
                       />
                       <span>Contact me</span>
-                    </NavigationMenuLink>
-                  </Link>
+                    </Link>
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>Other dropdown</NavigationMenuTrigger>
+                  <NavigationMenuTrigger className="bg-accent">
+                    Other dropdown
+                  </NavigationMenuTrigger>
                   <NavigationMenuContent className="p-6 md:w-[400px] lg:w-[500px]">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                     Expedita sint nam aspernatur placeat corrupti. Dicta totam
