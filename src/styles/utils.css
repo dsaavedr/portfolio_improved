@@ -19,10 +19,22 @@
 
 /* Fade effects */
 @utility fade-x {
-  mask-image: linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%);
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 25%,
+    black 75%,
+    transparent 100%
+  );
 }
 @utility fade-y {
-  mask-image: linear-gradient(to top, transparent 0%, black 25%, black 75%, transparent 100%);
+  mask-image: linear-gradient(
+    to top,
+    transparent 0%,
+    black 25%,
+    black 75%,
+    transparent 100%
+  );
 }
 @utility fade-top {
   mask-image: linear-gradient(to bottom, transparent 0%, black 35%);
@@ -47,4 +59,9 @@
 }
 @utility fade-right-lg {
   mask-image: linear-gradient(to left, transparent 15%, black 100%);
+}
+
+/* Misc */
+@utility nav-link {
+  @apply hover:bg-accent focus:bg-accent flex w-full rounded-md px-3 py-2 text-sm font-medium transition-colors focus:outline-none disabled:pointer-events-none disabled:opacity-50;
 }
