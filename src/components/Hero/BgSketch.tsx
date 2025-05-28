@@ -160,7 +160,6 @@ const BgSketch = ({ particles = 40 }: Params) => {
 
   return (
     <>
-      <h1 className="text-red text-3xl">{theme}</h1>
       <canvas
         id="hero-animation"
         className="absolute top-0 -z-10"
