@@ -1,13 +1,15 @@
-import MatterSketch from "./MatterSketch";
+import BgSketch from "./BgSketch";
 
 const Hero = () => {
   return (
     <div className="relative h-screen pt-40 text-center">
-      <h1 className="text-9xl font-bold uppercase">Daniel Saavedra</h1>
-      <h2 className="text-muted-foreground text-7xl font-semibold uppercase">
+      <h1 className="mb-10 text-6xl font-bold uppercase md:text-9xl">
+        Daniel Saavedra
+      </h1>
+      <h2 className="text-muted-foreground text-3xl font-semibold uppercase md:text-7xl">
         Full Stack Developer
       </h2>
-      <MatterSketch />
+      <BgSketch />
     </div>
   );
 };
