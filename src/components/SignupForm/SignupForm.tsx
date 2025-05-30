@@ -6,10 +6,6 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
-  LogInForm as LogInFormType,
-  LogInFormSchema,
-} from "./LoginForm.schema";
-import {
   Form,
   FormControl,
   FormField,
@@ -17,25 +13,37 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
+import {
+  SignUpFormSchema,
+  SignUpForm as SignUpFormType,
+} from "./SignUpForm.schema";
 
-const LogInForm = () => {
-  const form = useForm<LogInFormType>({
-    resolver: zodResolver(LogInFormSchema),
+const SignupForm = () => {
+  const form = useForm<SignUpFormType>({
+    resolver: zodResolver(SignUpFormSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
+      confirmPassword: "",
     },
   });
 
   const { watch } = form;
 
-  const [email, password] = watch(["email", "password"]);
+  const [name, email, password, confirmPassword] = watch([
+    "name",
+    "email",
+    "password",
+    "confirmPassword",
+  ]);
 
-  const onSubmit: SubmitHandler<LogInFormType> = async (data) => {
+  const onSubmit: SubmitHandler<SignUpFormType> = async (data) => {
     console.log(data);
   };
 
-  const isDisabled = !email || !password;
+  const isDisabled =
+    !name || !email || !password || password !== confirmPassword;
 
   return (
     <Form {...form}>
@@ -44,12 +52,25 @@ const LogInForm = () => {
         className="max-w-sm space-y-6"
       >
         <div className="space-y-2 text-center">
-          <h1 className="text-3xl font-bold">Log In</h1>
+          <h1 className="text-3xl font-bold">Sign Up</h1>
           <p className="text-muted-foreground">
-            Enter your credentials to access your account
+            Enter your information below to create a new account
           </p>
         </div>
         <div className="space-y-4">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="John Doe" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="email"
@@ -80,23 +101,29 @@ const LogInForm = () => {
               </FormItem>
             )}
           />
-          <Button disabled={isDisabled} type="submit" className="w-full">
-            Log In
+          <FormField
+            control={form.control}
+            name="confirmPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Confirm Password</FormLabel>
+                <FormControl>
+                  <Input type="password" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" disabled={isDisabled} className="w-full">
+            Register
           </Button>
           <Button variant="outline" className="w-full">
-            Log in with Google
+            Register with Google
           </Button>
-          <Link
-            href="#"
-            className="inline-block w-full text-center text-sm underline"
-            prefetch={false}
-          >
-            Forgot your password?
-          </Link>
           <span className="flex w-full items-center justify-center gap-1 text-sm">
-            Don&lsquo;t have an account?{" "}
+            Already have an account?{" "}
             <Link href="#" className="underline" prefetch={false}>
-              Sign up
+              Log in
             </Link>
           </span>
         </div>
@@ -105,4 +132,4 @@ const LogInForm = () => {
   );
 };
 
-export default LogInForm;
+export default SignupForm;
