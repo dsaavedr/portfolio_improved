@@ -48,7 +48,7 @@ export async function updateSession(request: NextRequest) {
 
   const isAuthRoute =
     request.nextUrl.pathname === "/admin/login" ||
-    request.nextUrl.pathname === "/admin/sign-up";
+    request.nextUrl.pathname === "/admin/signup";
 
   if (isAuthRoute) {
     const {
