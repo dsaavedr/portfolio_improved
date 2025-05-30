@@ -6,6 +6,10 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
+  LogInForm as LogInFormType,
+  LogInFormSchema,
+} from "./LogInForm.schema";
+import {
   Form,
   FormControl,
   FormField,
@@ -13,37 +17,41 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import {
-  SignUpFormSchema,
-  SignUpForm as SignUpFormType,
-} from "./SignUpForm.schema";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
-const SignupForm = () => {
-  const form = useForm<SignUpFormType>({
-    resolver: zodResolver(SignUpFormSchema),
+const LogInForm = () => {
+  const router = useRouter();
+  const form = useForm<LogInFormType>({
+    resolver: zodResolver(LogInFormSchema),
     defaultValues: {
-      name: "",
       email: "",
       password: "",
-      confirmPassword: "",
     },
   });
 
   const { watch } = form;
 
-  const [name, email, password, confirmPassword] = watch([
-    "name",
-    "email",
-    "password",
-    "confirmPassword",
-  ]);
+  const [email, password] = watch(["email", "password"]);
 
-  const onSubmit: SubmitHandler<SignUpFormType> = async (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<LogInFormType> = async (data) => {
+    const { email, password } = data;
+
+    const errorMessage = (await loginAction(email, password)).errorMessage;
+
+    if (!errorMessage) {
+      toast.success("Logged in", {
+        description: "You have been successfully logged in",
+      });
+      router.push("/admin");
+    } else {
+      toast.error("Error", {
+        description: errorMessage,
+      });
+    }
   };
 
-  const isDisabled =
-    !name || !email || !password || password !== confirmPassword;
+  const isDisabled = !email || !password;
 
   return (
     <Form {...form}>
@@ -52,25 +60,12 @@ const SignupForm = () => {
         className="max-w-sm space-y-6"
       >
         <div className="space-y-2 text-center">
-          <h1 className="text-3xl font-bold">Sign Up</h1>
+          <h1 className="text-3xl font-bold">Log In</h1>
           <p className="text-muted-foreground">
-            Enter your information below to create a new account
+            Enter your credentials to access your account
           </p>
         </div>
         <div className="space-y-4">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="John Doe" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <FormField
             control={form.control}
             name="email"
@@ -101,29 +96,23 @@ const SignupForm = () => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="confirmPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Confirm Password</FormLabel>
-                <FormControl>
-                  <Input type="password" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit" disabled={isDisabled} className="w-full">
-            Register
+          <Button disabled={isDisabled} type="submit" className="w-full">
+            Log In
           </Button>
           <Button variant="outline" className="w-full">
-            Register with Google
+            Log in with Google
           </Button>
+          <Link
+            href="#"
+            className="inline-block w-full text-center text-sm underline"
+            prefetch={false}
+          >
+            Forgot your password?
+          </Link>
           <span className="flex w-full items-center justify-center gap-1 text-sm">
-            Already have an account?{" "}
+            Don&lsquo;t have an account?{" "}
             <Link href="#" className="underline" prefetch={false}>
-              Log in
+              Sign up
             </Link>
           </span>
         </div>
@@ -132,4 +121,4 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+export default LogInForm;
