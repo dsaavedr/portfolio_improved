@@ -6,8 +6,8 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
-  LoginForm as LoginFormType,
-  LoginFormSchema,
+  LogInForm as LogInFormType,
+  LogInFormSchema,
 } from "./LoginForm.schema";
 import {
   Form,
@@ -18,9 +18,9 @@ import {
   FormMessage,
 } from "../ui/form";
 
-const LoginForm = () => {
-  const form = useForm<LoginFormType>({
-    resolver: zodResolver(LoginFormSchema),
+const LogInForm = () => {
+  const form = useForm<LogInFormType>({
+    resolver: zodResolver(LogInFormSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -31,7 +31,7 @@ const LoginForm = () => {
 
   const [email, password] = watch(["email", "password"]);
 
-  const onSubmit: SubmitHandler<LoginFormType> = async (data) => {
+  const onSubmit: SubmitHandler<LogInFormType> = async (data) => {
     console.log(data);
   };
 
@@ -44,9 +44,9 @@ const LoginForm = () => {
         className="max-w-sm space-y-6"
       >
         <div className="space-y-2 text-center">
-          <h1 className="text-3xl font-bold">Login</h1>
+          <h1 className="text-3xl font-bold">Log In</h1>
           <p className="text-muted-foreground">
-            Enter your email below to login to your account
+            Enter your credentials to access your account
           </p>
         </div>
         <div className="space-y-4">
@@ -81,10 +81,10 @@ const LoginForm = () => {
             )}
           />
           <Button disabled={isDisabled} type="submit" className="w-full">
-            Login
+            Log In
           </Button>
           <Button variant="outline" className="w-full">
-            Login with Google
+            Log in with Google
           </Button>
           <Link
             href="#"
@@ -105,4 +105,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default LogInForm;

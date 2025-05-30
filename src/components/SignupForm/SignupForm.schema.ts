@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const SignupFormSchema = z
+export const SignUpFormSchema = z
   .object({
     name: z.string({
       required_error: "Name is required.",
@@ -39,4 +39,4 @@ export const SignupFormSchema = z
     },
   );
 
-export type SignupForm = z.infer<typeof SignupFormSchema>;
+export type SignUpForm = z.infer<typeof SignUpFormSchema>;

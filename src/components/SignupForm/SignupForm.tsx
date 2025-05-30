@@ -14,13 +14,13 @@ import {
   FormMessage,
 } from "../ui/form";
 import {
-  SignupFormSchema,
-  SignupForm as SignupFormType,
-} from "./SignupForm.schema";
+  SignUpFormSchema,
+  SignUpForm as SignUpFormType,
+} from "./SignUpForm.schema";
 
 const SignupForm = () => {
-  const form = useForm<SignupFormType>({
-    resolver: zodResolver(SignupFormSchema),
+  const form = useForm<SignUpFormType>({
+    resolver: zodResolver(SignUpFormSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -38,7 +38,7 @@ const SignupForm = () => {
     "confirmPassword",
   ]);
 
-  const onSubmit: SubmitHandler<SignupFormType> = async (data) => {
+  const onSubmit: SubmitHandler<SignUpFormType> = async (data) => {
     console.log(data);
   };
 
