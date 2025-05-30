@@ -20,6 +20,7 @@ import {
 import { useTransition } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { signUpAction } from "@/actions/users";
 
 const SignupForm = () => {
   const router = useRouter();
@@ -43,21 +44,24 @@ const SignupForm = () => {
     "confirmPassword",
   ]);
 
-  const onSubmit: SubmitHandler<SignUpFormType> = async (data) => {
-    const { name, email, password } = data;
+  const onSubmit: SubmitHandler<SignUpFormType> = (data) => {
+    startTransition(async () => {
+      const { name, email, password } = data;
 
-    const errorMessage = signUpAction(name, email, password).errorMessage;
+      const errorMessage = (await signUpAction(name, email, password))
+        .errorMessage;
 
-    if (!errorMessage) {
-      toast.success("Signed up", {
-        description: "Check your email for a confirmation link",
-      });
-      router.push("/");
-    } else {
-      toast.error("Error", {
-        description: errorMessage,
-      });
-    }
+      if (!errorMessage) {
+        toast.success("Signed up", {
+          description: "Check your email for a confirmation link",
+        });
+        router.replace("/admin");
+      } else {
+        toast.error("Error", {
+          description: errorMessage,
+        });
+      }
+    });
   };
 
   const isDisabled =

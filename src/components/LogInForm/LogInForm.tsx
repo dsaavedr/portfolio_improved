@@ -19,6 +19,8 @@ import {
 } from "../ui/form";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { logInAction } from "@/actions/users";
+import { useTransition } from "react";
 
 const LogInForm = () => {
   const router = useRouter();
@@ -29,29 +31,32 @@ const LogInForm = () => {
       password: "",
     },
   });
+  const [isPending, startTransition] = useTransition();
 
   const { watch } = form;
 
   const [email, password] = watch(["email", "password"]);
 
-  const onSubmit: SubmitHandler<LogInFormType> = async (data) => {
-    const { email, password } = data;
+  const onSubmit: SubmitHandler<LogInFormType> = (data) => {
+    startTransition(async () => {
+      const { email, password } = data;
 
-    const errorMessage = (await loginAction(email, password)).errorMessage;
+      const errorMessage = (await logInAction(email, password)).errorMessage;
 
-    if (!errorMessage) {
-      toast.success("Logged in", {
-        description: "You have been successfully logged in",
-      });
-      router.push("/admin");
-    } else {
-      toast.error("Error", {
-        description: errorMessage,
-      });
-    }
+      if (!errorMessage) {
+        toast.success("Logged in", {
+          description: "You have been successfully logged in",
+        });
+        router.replace("/admin");
+      } else {
+        toast.error("Error", {
+          description: errorMessage,
+        });
+      }
+    });
   };
 
-  const isDisabled = !email || !password;
+  const isDisabled = !email || !password || isPending;
 
   return (
     <Form {...form}>
@@ -111,7 +116,7 @@ const LogInForm = () => {
           </Link>
           <span className="flex w-full items-center justify-center gap-1 text-sm">
             Don&lsquo;t have an account?{" "}
-            <Link href="#" className="underline" prefetch={false}>
+            <Link href="/admin/signup" className="underline" prefetch={false}>
               Sign up
             </Link>
           </span>
