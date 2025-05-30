@@ -52,7 +52,7 @@ const SignupForm = () => {
         className="max-w-sm space-y-6"
       >
         <div className="space-y-2 text-center">
-          <h1 className="text-3xl font-bold">Signup</h1>
+          <h1 className="text-3xl font-bold">Sign Up</h1>
           <p className="text-muted-foreground">
             Enter your information below to create a new account
           </p>
