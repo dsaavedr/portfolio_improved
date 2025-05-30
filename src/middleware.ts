@@ -46,19 +46,29 @@ export async function updateSession(request: NextRequest) {
     },
   );
 
+  const isProtectedRoute = request.nextUrl.pathname.startsWith("/admin");
+
   const isAuthRoute =
     request.nextUrl.pathname === "/admin/login" ||
     request.nextUrl.pathname === "/admin/signup";
 
-  if (isAuthRoute) {
+  if (isProtectedRoute) {
     const {
       data: { user },
     } = await supabase.auth.getUser();
 
-    if (user) {
-      return NextResponse.redirect(
-        new URL("/admin", process.env.NEXT_PUBLIC_BASE_URL),
-      );
+    if (isAuthRoute) {
+      if (user) {
+        return NextResponse.redirect(
+          new URL("/admin", process.env.NEXT_PUBLIC_BASE_URL),
+        );
+      }
+    } else {
+      if (!user) {
+        return NextResponse.redirect(
+          new URL("/admin/login", process.env.NEXT_PUBLIC_BASE_URL),
+        );
+      }
     }
   }
 
