@@ -24,3 +24,10 @@ export function random(params: { min?: number; max: number } | undefined) {
 
   return Math.random() * (max - min) + min;
 }
+
+export function handleError(error: unknown) {
+  if (error instanceof Error) {
+    return { errorMessage: error.message };
+  }
+  return { errorMessage: "An error occurred" };
+}
