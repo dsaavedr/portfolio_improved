@@ -27,9 +27,15 @@ const LoginForm = () => {
     },
   });
 
+  const { watch } = form;
+
+  const [email, password] = watch(["email", "password"]);
+
   const onSubmit: SubmitHandler<LoginFormType> = async (data) => {
     console.log(data);
   };
+
+  const isDisabled = !email || !password;
 
   return (
     <Form {...form}>
@@ -51,7 +57,11 @@ const LoginForm = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="email@example.com" {...field} />
+                  <Input
+                    type="email"
+                    placeholder="email@example.com"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -64,13 +74,13 @@ const LoginForm = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input type="password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full">
+          <Button disabled={isDisabled} type="submit" className="w-full">
             Login
           </Button>
           <Button variant="outline" className="w-full">
