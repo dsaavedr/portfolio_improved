@@ -128,7 +128,7 @@ const BgSketch = ({ particles = 40 }: Params) => {
 
         const pos = new Vector(x, y);
         const vel = Vector.random();
-        vel.setMag(random({ min: 0.3, max: 1.3 }));
+        vel.setMag(random({ min: 0.3, max: 0.8 }));
 
         particles.push(
           new Particle(
