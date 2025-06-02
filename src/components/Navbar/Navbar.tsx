@@ -18,20 +18,27 @@ import {
   MenuIcon,
   MessageSquareCodeIcon,
   PresentationIcon,
+  XIcon,
 } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
 import { Collapsible, CollapsibleContent } from "../ui/collapsible";
 import { CollapsibleTrigger } from "@radix-ui/react-collapsible";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import { getUser } from "@/auth/server";
+import LogOutButton from "../LogOutButton/LogOutButton";
 
 type Props = {
   className?: string;
 };
 
-const Navbar = ({ className }: Props) => {
+const Navbar = async ({ className }: Props) => {
+  const user = await getUser();
+
   return (
     <header className={className}>
+      {/* Small viewports */}
+
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="mt-5 ml-5 lg:hidden">
@@ -39,15 +46,24 @@ const Navbar = ({ className }: Props) => {
             <span className="sr-only">Toggle navigation menu</span>
           </Button>
         </SheetTrigger>
+        <DialogTitle id="mobile-nav-title" className="sr-only">
+          Navigation menu
+        </DialogTitle>
         <SheetContent side="top">
-          <DialogTitle id="mobile-nav-title" className="sr-only">
-            Navigation menu
-          </DialogTitle>
           <div className="flex w-full justify-between px-7 pt-7 pb-3">
             <Link href="/">
               <Logo />
             </Link>
-            <DarkModeToggle />
+            <div className="flex items-center gap-2">
+              {user && <LogOutButton />}
+              <DarkModeToggle />
+              <SheetClose asChild>
+                <Button variant="ghost" size="icon" className="rounded-full">
+                  <XIcon className="h-6 w-6" />
+                  <span className="sr-only">Close</span>
+                </Button>
+              </SheetClose>
+            </div>
           </div>
           <nav className="flex flex-col gap-2 px-4 py-6">
             <Link href="#" className="nav-link">
@@ -81,6 +97,9 @@ const Navbar = ({ className }: Props) => {
           </nav>
         </SheetContent>
       </Sheet>
+
+      {/* Large viewports */}
+
       <div className="fixed top-0 z-50 hidden w-full px-4 pb-4 lg:block">
         <nav
           data-slot="navbar"
@@ -152,8 +171,9 @@ const Navbar = ({ className }: Props) => {
           </nav>
           <nav
             data-slot="navbar-right"
-            className="justify-end, flex items-center gap-4"
+            className="flex items-center justify-end gap-4"
           >
+            {user && <LogOutButton />}
             <DarkModeToggle />
           </nav>
         </nav>
