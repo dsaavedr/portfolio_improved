@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URI")
+}
+
+model User {
+  id             String          @id @default(uuid()) @map("_id")
+  email          String          @unique
+  name           String
+  skills         Skill[]
+  experiences    Experience[]
+  certifications Certification[]
+}
+
+model Skill {
+  id     String    @id @default(auto()) @map("_id") @db.ObjectId
+  name   String
+  type   SkillType
+  user   User      @relation(fields: [userId], references: [id])
+  userId String
+}
+
+model Experience {
+  id               String        @id @default(auto()) @map("_id") @db.ObjectId
+  role             Translation
+  company          String
+  location         String
+  description      Translation
+  responsibilities Translation[]
+  startDate        DateTime
+  endDate          DateTime?
+  user             User          @relation(fields: [userId], references: [id])
+  userId           String
+}
+
+model Certification {
+  id     String   @id @default(auto()) @map("_id") @db.ObjectId
+  title  String
+  source String
+  date   DateTime
+  user   User     @relation(fields: [userId], references: [id])
+  userId String
+}
+
+type Translation {
+  en String
+  es String
+}
+
+enum SkillType {
+  FRONT_END
+  BACK_END
+  DEV_OPS
+  MISCELLANEOUS
+}
