@@ -33,10 +33,6 @@ const LogInForm = () => {
   });
   const [isPending, startTransition] = useTransition();
 
-  const { watch } = form;
-
-  const [email, password] = watch(["email", "password"]);
-
   const onSubmit: SubmitHandler<LogInFormType> = (data) => {
     startTransition(async () => {
       const { email, password } = data;
@@ -56,7 +52,7 @@ const LogInForm = () => {
     });
   };
 
-  const isDisabled = !email || !password || isPending;
+  const isDisabled = isPending;
 
   return (
     <Form {...form}>

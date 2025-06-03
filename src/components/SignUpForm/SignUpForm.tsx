@@ -35,15 +35,6 @@ const SignupForm = () => {
   });
   const [isPending, startTransition] = useTransition();
 
-  const { watch } = form;
-
-  const [name, email, password, confirmPassword] = watch([
-    "name",
-    "email",
-    "password",
-    "confirmPassword",
-  ]);
-
   const onSubmit: SubmitHandler<SignUpFormType> = (data) => {
     startTransition(async () => {
       const { name, email, password } = data;
@@ -64,8 +55,7 @@ const SignupForm = () => {
     });
   };
 
-  const isDisabled =
-    !name || !email || !password || password !== confirmPassword || isPending;
+  const isDisabled = isPending;
 
   return (
     <Form {...form}>
