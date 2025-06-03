@@ -36,15 +36,19 @@ const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
   const router = useRouter();
   const form = useForm<ExperiencesFormData>({
     resolver: zodResolver(ExperiencesFormSchema),
-    defaultValues: initialValues,
+    defaultValues: initialValues || {
+      roleEn: "",
+      roleEs: "",
+      company: "",
+      location: "",
+      descriptionEn: "",
+      descriptionEs: "",
+      responsibilitiesEn: "",
+      responsibilitiesEs: "",
+    },
     mode: "onChange",
   });
-  const {
-    watch,
-    control,
-    handleSubmit,
-    formState: { isDirty, isValid },
-  } = form;
+  const { watch, control, handleSubmit } = form;
   const [isPending, startTransition] = useTransition();
 
   const [startDate, endDate] = watch(["startDate", "endDate"]);
@@ -62,7 +66,7 @@ const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
         toast.success(`Experience successfully ${id ? "edited" : "created"}`, {
           description: "You have been successfully logged in",
         });
-        router.replace("/experiences");
+        router.push("/admin/experiences");
       } else {
         toast.error("Error", {
           description: errorMessage,
@@ -71,14 +75,14 @@ const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
     });
   };
 
-  const isDisabled = !isDirty || !isValid || isPending;
+  const isDisabled = isPending;
 
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-2 text-center">
           <h1 className="mb-5 text-3xl font-bold">
-            Experience - {id ? "Edit" : "Create"}
+            {id ? "Edit" : "Create"} experience
           </h1>
         </div>
         <div className="flex justify-center gap-10">
@@ -161,7 +165,13 @@ const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
-                        <Calendar {...field} mode="single" initialFocus />
+                        <Calendar
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          {...field}
+                          mode="single"
+                          initialFocus
+                        />
                       </PopoverContent>
                     </Popover>
                   </FormControl>
@@ -194,7 +204,13 @@ const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
-                        <Calendar {...field} mode="single" initialFocus />
+                        <Calendar
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          {...field}
+                          mode="single"
+                          initialFocus
+                        />
                       </PopoverContent>
                     </Popover>
                   </FormControl>
