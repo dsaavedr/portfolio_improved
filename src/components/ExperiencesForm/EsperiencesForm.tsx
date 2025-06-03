@@ -120,7 +120,7 @@ const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
                 <FormItem>
                   <FormLabel>Company</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input placeholder="Acme Inc." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -133,7 +133,7 @@ const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
                 <FormItem>
                   <FormLabel>Location</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input placeholder="Springfield" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
