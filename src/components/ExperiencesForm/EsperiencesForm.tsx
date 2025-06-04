@@ -55,7 +55,7 @@ const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
 
   const onSubmit: SubmitHandler<ExperiencesFormData> = (data) => {
     startTransition(async () => {
-      let errorMessage = "";
+      let errorMessage: string | null;
       if (id) {
         errorMessage = (await editExperienceAction(data, id)).errorMessage;
       } else {
@@ -63,8 +63,8 @@ const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
       }
 
       if (!errorMessage) {
-        toast.success(`Experience successfully ${id ? "edited" : "created"}`, {
-          description: "You have been successfully logged in",
+        toast.success("Success", {
+          description: `The experience has been successfully ${id ? "edited" : "created"}!`,
         });
         router.push("/admin/experiences");
       } else {
@@ -87,6 +87,83 @@ const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
         </div>
         <div className="flex justify-center gap-10">
           <div className="space-y-4">
+            <FormField
+              control={control}
+              name="startDate"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Start Date</FormLabel>
+                  <FormControl>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className={cn(
+                            "w-[280px] justify-start text-left font-normal",
+                            !startDate && "text-muted-foreground",
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {startDate ? (
+                            format(startDate, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0">
+                        <Calendar
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          {...field}
+                          mode="single"
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={control}
+              name="endDate"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>End Date</FormLabel>
+                  <FormControl>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className={cn(
+                            "w-[280px] justify-start text-left font-normal",
+                            !endDate && "text-muted-foreground",
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {endDate ? (
+                            format(endDate, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0">
+                        <Calendar
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          {...field}
+                          mode="single"
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={control}
               name="roleEn"
@@ -134,85 +211,6 @@ const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
                   <FormLabel>Location</FormLabel>
                   <FormControl>
                     <Input placeholder="Springfield" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={control}
-              name="startDate"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Start Date</FormLabel>
-                  <FormControl>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className={cn(
-                            "w-[280px] justify-start text-left font-normal",
-                            !startDate && "text-muted-foreground",
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {startDate ? (
-                            format(startDate, "PPP")
-                          ) : (
-                            <span>Pick a date</span>
-                          )}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0">
-                        <Calendar
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          {...field}
-                          mode="single"
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={control}
-              name="endDate"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>End Date</FormLabel>
-                  <FormControl>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className={cn(
-                            "w-[280px] justify-start text-left font-normal",
-                            !endDate && "text-muted-foreground",
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {endDate ? (
-                            format(endDate, "PPP")
-                          ) : (
-                            <span>Pick a date</span>
-                          )}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0">
-                        <Calendar
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          {...field}
-                          mode="single"
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
