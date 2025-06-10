@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import Navbar from "@/components/Navbar/Navbar";
 import { Toaster } from "@/components/ui/sonner";
+import ConfirmationDialog from "@/components/ConfirmationDialog";
 
 export const metadata: Metadata = {
   title: "Daniel's Portfolio",
@@ -27,6 +28,7 @@ export default function RootLayout({
           <div className="flex min-h-screen w-full flex-col">
             <Navbar />
             <main>{children}</main>
+            <ConfirmationDialog />
             <Toaster />
           </div>
         </ThemeProvider>
