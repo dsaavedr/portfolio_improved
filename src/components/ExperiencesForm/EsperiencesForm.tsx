@@ -37,10 +37,10 @@ const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
   const form = useForm<ExperiencesFormData>({
     resolver: zodResolver(ExperiencesFormSchema),
     defaultValues: initialValues || {
-      roleEn: "",
-      roleEs: "",
+      roleEn: "Web Developer",
+      roleEs: "Desarrollador Web",
       company: "",
-      location: "",
+      location: "Bogotá",
       descriptionEn: "",
       descriptionEs: "",
       responsibilitiesEn: "",
@@ -79,9 +79,9 @@ const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="max-w-4xl" onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-2 text-center">
-          <h1 className="mb-5 text-3xl font-bold">
+          <h1 className="mb-10 text-3xl font-bold">
             {id ? "Edit" : "Create"} experience
           </h1>
         </div>
