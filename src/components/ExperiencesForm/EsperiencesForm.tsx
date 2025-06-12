@@ -31,6 +31,7 @@ import {
   createExperienceAction,
   editExperienceAction,
 } from "@/actions/experiences";
+import Link from "next/link";
 
 const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
   const router = useRouter();
@@ -79,7 +80,10 @@ const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
 
   return (
     <Form {...form}>
-      <form className="max-w-4xl" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="max-w-4xl px-5 lg:px-0"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className="space-y-2 text-center">
           <h1 className="mb-10 text-3xl font-bold">
             {id ? "Edit" : "Create"} experience
@@ -280,9 +284,16 @@ const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
             />
           </div>
         </div>
-        <Button disabled={isDisabled} type="submit" className="mt-5 w-full">
-          {id ? "Save" : "Create"}
-        </Button>
+        <div className="mt-10 flex w-full flex-col-reverse items-center gap-5 lg:flex-row">
+          <Link className="w-full flex-1" href="/admin/experiences">
+            <Button className="w-full" type="button" variant="outline">
+              Cancel
+            </Button>
+          </Link>
+          <Button className="w-full flex-1" disabled={isDisabled} type="submit">
+            {id ? "Save" : "Create"}
+          </Button>
+        </div>
       </form>
     </Form>
   );
