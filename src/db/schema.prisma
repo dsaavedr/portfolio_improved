@@ -8,12 +8,12 @@ datasource db {
 }
 
 model User {
-  id             String          @id @default(uuid()) @map("_id")
-  email          String          @unique
+  id             String        @id @default(uuid()) @map("_id")
+  email          String        @unique
   name           String
   skills         Skill[]
   experiences    Experience[]
-  certifications Certification[]
+  certifications Certificate[]
 }
 
 model Skill {
@@ -37,7 +37,7 @@ model Experience {
   userId           String
 }
 
-model Certification {
+model Certificate {
   id     String   @id @default(auto()) @map("_id") @db.ObjectId
   title  String
   source String
