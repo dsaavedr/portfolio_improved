@@ -1,9 +1,8 @@
 import ExperiencesForm from "@/components/ExperiencesForm/EsperiencesForm";
-import React from "react";
 
 const page = () => {
   return (
-    <div className="flex h-screen w-full items-center justify-center">
+    <div className="flex w-full items-center justify-center pt-5">
       <ExperiencesForm />
     </div>
   );

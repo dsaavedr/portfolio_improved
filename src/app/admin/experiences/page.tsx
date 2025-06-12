@@ -20,7 +20,8 @@ const page = async () => {
   }
 
   return (
-    <div className="container mx-auto pt-25 pb-5">
+    <div className="container mx-auto pt-5 pb-5">
+      <h1 className="mb-10 text-center text-3xl font-bold">Experiences</h1>
       <ExperiencesTable experiences={experiences} />
     </div>
   );

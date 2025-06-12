@@ -66,7 +66,7 @@ const Navbar = async ({ className }: Props) => {
             </div>
           </div>
           <nav className="flex flex-col gap-2 px-4 py-6">
-            <Link href="#" className="nav-link">
+            <Link href="/" className="nav-link">
               Home
             </Link>
             <Link href="#" className="nav-link">
@@ -100,7 +100,7 @@ const Navbar = async ({ className }: Props) => {
 
       {/* Large viewports */}
 
-      <div className="fixed top-0 z-50 hidden w-full px-4 pb-4 lg:block">
+      <div className="z-50 hidden w-full px-4 pb-4 lg:block">
         <nav
           data-slot="navbar"
           className="mx-auto flex max-w-7xl items-center justify-between py-4"
