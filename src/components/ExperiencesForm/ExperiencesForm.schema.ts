@@ -35,5 +35,3 @@ export const ExperiencesFormSchema = z
       path: ["endDate"],
     },
   );
-
-export type ExperiencesFormData = z.infer<typeof ExperiencesFormSchema>;

@@ -1,7 +1,7 @@
 "use server";
 
 import { getUser } from "@/auth/server";
-import { ExperiencesFormData } from "@/components/ExperiencesForm/ExperiencesForm.schema";
+import { ExperiencesFormData } from "@/components/ExperiencesForm/ExperiencesForm.types";
 import { prisma } from "@/db/prisma";
 import { handleError } from "@/lib/utils";
 import { Prisma } from "@prisma/client";
