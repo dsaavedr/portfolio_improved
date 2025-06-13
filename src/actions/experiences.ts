@@ -5,7 +5,7 @@ import { ExperiencesFormData } from "@/components/ExperiencesForm/ExperiencesFor
 import { prisma } from "@/db/prisma";
 import { handleError } from "@/lib/utils";
 import { Prisma } from "@prisma/client";
-import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export const editExperienceAction = async (
   data: ExperiencesFormData,
@@ -117,7 +117,7 @@ export const deleteExperienceAction = async (id: string) => {
   } catch (err) {
     return handleError(err);
   } finally {
-    redirect("/admin/experiences");
+    revalidatePath("/admin/experiences");
   }
 };
 
