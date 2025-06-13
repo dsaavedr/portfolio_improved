@@ -1,13 +1,13 @@
 "use client";
 
 import { SubmitHandler, useForm } from "react-hook-form";
-import {
-  ExperiencesFormData,
-  ExperiencesFormSchema,
-} from "./ExperiencesForm.schema";
+import { ExperiencesFormSchema } from "./ExperiencesForm.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTransition } from "react";
-import { ExperiencesFormParams } from "./ExperiencesForm.types";
+import {
+  ExperiencesFormData,
+  ExperiencesFormParams,
+} from "./ExperiencesForm.types";
 import {
   Form,
   FormControl,
@@ -76,8 +76,6 @@ const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
     });
   };
 
-  const isDisabled = isPending;
-
   return (
     <Form {...form}>
       <form
@@ -121,6 +119,7 @@ const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
                           onSelect={field.onChange}
                           {...field}
                           mode="single"
+                          autoFocus
                         />
                       </PopoverContent>
                     </Popover>
@@ -159,7 +158,7 @@ const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
                           onSelect={field.onChange}
                           {...field}
                           mode="single"
-                          initialFocus
+                          autoFocus
                         />
                       </PopoverContent>
                     </Popover>
@@ -290,7 +289,7 @@ const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
               Cancel
             </Button>
           </Link>
-          <Button className="w-full flex-1" disabled={isDisabled} type="submit">
+          <Button className="w-full flex-1" disabled={isPending} type="submit">
             {id ? "Save" : "Create"}
           </Button>
         </div>

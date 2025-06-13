@@ -16,24 +16,38 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 import { ArrowUpDownIcon, SortAscIcon, SortDescIcon } from "lucide-react";
+import { Skeleton } from "../ui/skeleton";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  loading: boolean;
 }
 
 export default function DataTable<TData, TValue>({
   columns,
   data,
+  loading,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
 
+  const tableColumns = useMemo(
+    () =>
+      loading
+        ? columns.map((col) => ({
+            ...col,
+            cell: () => <Skeleton className="h-[32px] w-4/5 rounded-lg" />,
+          }))
+        : columns,
+    [loading, columns],
+  );
+
   const table = useReactTable({
     data,
-    columns,
+    columns: tableColumns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
@@ -64,7 +78,7 @@ export default function DataTable<TData, TValue>({
                         }
                         onClick={header.column.getToggleSortingHandler()}
                         className={cn(
-                          "flex items-center",
+                          "flex items-center gap-1",
                           header.column.getCanSort() &&
                             "cursor-pointer select-none",
                         )}

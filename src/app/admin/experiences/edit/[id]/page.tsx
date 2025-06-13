@@ -1,5 +1,5 @@
 import { getExperienceById } from "@/actions/experiences";
-import ExperiencesForm from "@/components/ExperiencesForm/EsperiencesForm";
+import ExperiencesForm from "@/components/ExperiencesForm/ExperiencesForm";
 import { Prisma } from "@prisma/client";
 import { toast } from "sonner";
 
