@@ -76,7 +76,7 @@ export const createColumns = ({ onDelete }: CreateColumnsProps) => {
     }),
     columnHelper.accessor("date", {
       header: "Date",
-      cell: (info) => format(info.getValue(), "MMM/YYY"),
+      cell: (info) => format(info.getValue(), "MMM/yyy"),
     }),
   ] as Array<ColumnDef<ICertificate, unknown>>;
 };
