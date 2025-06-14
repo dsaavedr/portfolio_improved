@@ -31,3 +31,14 @@ export function handleError(error: unknown) {
   }
   return { errorMessage: "An error occurred" };
 }
+
+export function capitalize(val: string) {
+  return val.charAt(0).toUpperCase() + val.slice(1).toLowerCase();
+}
+
+export function capitalizeWords(val: string) {
+  return val
+    .split(/\s|_/g)
+    .map((word) => capitalize(word))
+    .join(" ");
+}
