@@ -3,7 +3,10 @@
 import { useEffect, useState } from "react";
 
 const getWindowDimensions = () => {
-  const { innerWidth: width, innerHeight: height } = window;
+  // *Window width minus scrollbar
+  //  document.clientHeight is 0 on load, so we still need to get the height from the window.
+  const { clientWidth: width } = document.body;
+  const { innerHeight: height } = window;
   return [width, height];
 };
 
