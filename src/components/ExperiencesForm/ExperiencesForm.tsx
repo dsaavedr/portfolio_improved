@@ -3,7 +3,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ExperiencesFormSchema } from "./ExperiencesForm.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import {
   ExperiencesFormData,
   ExperiencesFormParams,
@@ -31,7 +31,6 @@ import {
   createExperienceAction,
   editExperienceAction,
 } from "@/actions/experiences";
-import Link from "next/link";
 
 const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
   const router = useRouter();
@@ -51,6 +50,7 @@ const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
   });
   const { watch, control, handleSubmit } = form;
   const [isPending, startTransition] = useTransition();
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   const [startDate, endDate] = watch(["startDate", "endDate"]);
 
@@ -75,6 +75,13 @@ const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
       }
     });
   };
+
+  const onCancel = () => {
+    setIsRedirecting(true);
+    router.push("/admin/experiences");
+  };
+
+  const isDisabled = isPending || isRedirecting;
 
   return (
     <Form {...form}>
@@ -284,12 +291,15 @@ const ExperiencesForm = ({ initialValues, id }: ExperiencesFormParams) => {
           </div>
         </div>
         <div className="mt-10 flex w-full flex-col-reverse items-center gap-5 lg:flex-row">
-          <Link className="w-full flex-1" href="/admin/experiences">
-            <Button className="w-full" type="button" variant="outline">
-              Cancel
-            </Button>
-          </Link>
-          <Button className="w-full flex-1" disabled={isPending} type="submit">
+          <Button
+            className="w-full flex-1"
+            onClick={onCancel}
+            type="button"
+            variant="outline"
+          >
+            Cancel
+          </Button>
+          <Button className="w-full flex-1" disabled={isDisabled} type="submit">
             {id ? "Save" : "Create"}
           </Button>
         </div>

@@ -7,7 +7,7 @@ import {
 } from "./CertificatesForm.types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CertificatesFormSchema } from "./CertificatesForm.schema";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import {
   Form,
   FormControl,
@@ -23,7 +23,6 @@ import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { Calendar } from "../ui/calendar";
-import Link from "next/link";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import {
@@ -43,6 +42,7 @@ const CertificatesForm = ({ initialValues, id }: CertificatesFormParams) => {
     },
     mode: "onChange",
   });
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   const { watch, control, handleSubmit } = form;
 
@@ -70,6 +70,13 @@ const CertificatesForm = ({ initialValues, id }: CertificatesFormParams) => {
       }
     });
   };
+
+  const onCancel = () => {
+    setIsRedirecting(true);
+    router.push("/admin/certificates");
+  };
+
+  const isDisabled = isPending || isRedirecting;
 
   return (
     <Form {...form}>
@@ -147,12 +154,15 @@ const CertificatesForm = ({ initialValues, id }: CertificatesFormParams) => {
           />
         </div>
         <div className="mt-10 flex w-full flex-col-reverse items-center gap-5 lg:flex-row">
-          <Link className="w-full flex-1" href="/admin/certificates">
-            <Button className="w-full" type="button" variant="outline">
-              Cancel
-            </Button>
-          </Link>
-          <Button className="w-full flex-1" disabled={isPending} type="submit">
+          <Button
+            className="w-full flex-1"
+            onClick={onCancel}
+            type="button"
+            variant="outline"
+          >
+            Cancel
+          </Button>
+          <Button className="w-full flex-1" disabled={isDisabled} type="submit">
             {id ? "Save" : "Create"}
           </Button>
         </div>

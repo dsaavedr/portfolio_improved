@@ -1,7 +1,7 @@
 "use client";
 
 import { SkillsFormData, SkillsFormParams } from "./SkillsForm.types";
-import { useEffect, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SkillsFormSchema } from "./SkillsForm.schema";
@@ -24,12 +24,13 @@ import {
   SelectValue,
 } from "../ui/select";
 import { capitalizeWords } from "@/lib/utils";
-import Link from "next/link";
 import { Button } from "../ui/button";
 import { createSkillAction, editSkillAction } from "@/actions/skills";
+import { useRouter } from "next/navigation";
 
 const SkillsForm = ({ initialValues, id }: SkillsFormParams) => {
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
   const form = useForm<SkillsFormData>({
     resolver: zodResolver(SkillsFormSchema),
     defaultValues: initialValues || {
@@ -38,6 +39,7 @@ const SkillsForm = ({ initialValues, id }: SkillsFormParams) => {
     },
     mode: "onChange",
   });
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   const {
     formState: { isSubmitSuccessful },
@@ -73,6 +75,13 @@ const SkillsForm = ({ initialValues, id }: SkillsFormParams) => {
       reset();
     }
   }, [isSubmitSuccessful, reset]);
+
+  const onCancel = () => {
+    setIsRedirecting(true);
+    router.push("/admin/skills/");
+  };
+
+  const isDisabled = isPending || isRedirecting;
 
   return (
     <Form {...form}>
@@ -126,12 +135,15 @@ const SkillsForm = ({ initialValues, id }: SkillsFormParams) => {
           />
         </div>
         <div className="mt-10 flex w-full flex-col-reverse items-center gap-5 lg:flex-row">
-          <Link className="w-full flex-1" href="/admin/skills">
-            <Button className="w-full" type="button" variant="outline">
-              Cancel
-            </Button>
-          </Link>
-          <Button className="w-full flex-1" disabled={isPending} type="submit">
+          <Button
+            className="w-full flex-1"
+            onClick={onCancel}
+            type="button"
+            variant="outline"
+          >
+            Cancel
+          </Button>
+          <Button className="w-full flex-1" disabled={isDisabled} type="submit">
             {id ? "Save" : "Create"}
           </Button>
         </div>
