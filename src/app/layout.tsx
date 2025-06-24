@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/providers/ThemeProvider";
 import Navbar from "@/components/Navbar/Navbar";
 import { Toaster } from "@/components/ui/sonner";
 import ConfirmationDialog from "@/components/ConfirmationDialog";
+import Footer from "@/components/Footer/Footer";
 
 export const metadata: Metadata = {
   title: "Daniel's Portfolio",
@@ -25,9 +26,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex min-h-screen w-full flex-col">
-            <Navbar />
-            <main>{children}</main>
+          <div className="min-h-screen w-full">
+            <div className="mb-5 min-h-screen w-full">
+              <Navbar />
+              <main>{children}</main>
+            </div>
+            <Footer />
             <ConfirmationDialog />
             <Toaster />
           </div>
