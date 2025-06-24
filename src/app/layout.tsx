@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
-import Navbar from "@/components/Navbar/Navbar";
 import { Toaster } from "@/components/ui/sonner";
 import ConfirmationDialog from "@/components/ConfirmationDialog";
-import Footer from "@/components/Footer/Footer";
 
 export const metadata: Metadata = {
   title: "Daniel's Portfolio",
@@ -27,11 +25,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="min-h-screen w-full">
-            <div className="mb-5 min-h-screen w-full">
-              <Navbar />
-              <main>{children}</main>
-            </div>
-            <Footer />
+            {children}
             <ConfirmationDialog />
             <Toaster />
           </div>
