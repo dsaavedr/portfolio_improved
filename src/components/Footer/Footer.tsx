@@ -12,7 +12,7 @@ const Footer = () => {
     <footer className="bg-accent w-full py-10">
       <div className="container mx-auto space-y-10">
         <div>
-          <h2 className="mb-1 text-center text-3xl font-semibold">
+          <h2 className="mb-1 text-center text-4xl font-semibold uppercase">
             Daniel Saavedra
           </h2>
           <p className="flex items-center justify-center gap-1">
