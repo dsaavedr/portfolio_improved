@@ -42,3 +42,29 @@ export function capitalizeWords(val: string) {
     .map((word) => capitalize(word))
     .join(" ");
 }
+
+export function sortByProperty<T>(
+  prop: keyof T,
+  desc?: boolean,
+): (a: T, b: T) => number {
+  return (a, b) => {
+    const aVal = desc ? b[prop] : a[prop];
+    const bVal = desc ? a[prop] : b[prop];
+
+    if (typeof aVal === "number" && typeof bVal === "number") {
+      return bVal - aVal;
+    }
+
+    if (aVal instanceof Date && bVal instanceof Date) {
+      return bVal.getTime() - aVal.getTime();
+    }
+
+    if (typeof aVal === "string" && typeof bVal === "string") {
+      return bVal.localeCompare(aVal);
+    }
+
+    throw new Error(
+      `Property '${String(prop)}' is not a number, string or Date`,
+    );
+  };
+}
