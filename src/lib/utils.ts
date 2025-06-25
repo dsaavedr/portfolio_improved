@@ -43,10 +43,13 @@ export function capitalizeWords(val: string) {
     .join(" ");
 }
 
-export function sortByProperty<T>(prop: keyof T): (a: T, b: T) => number {
+export function sortByProperty<T>(
+  prop: keyof T,
+  desc?: boolean,
+): (a: T, b: T) => number {
   return (a, b) => {
-    const aVal = a[prop];
-    const bVal = b[prop];
+    const aVal = desc ? b[prop] : a[prop];
+    const bVal = desc ? a[prop] : b[prop];
 
     if (typeof aVal === "number" && typeof bVal === "number") {
       return bVal - aVal;
