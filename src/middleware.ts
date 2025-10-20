@@ -51,7 +51,7 @@ export async function updateSession(request: NextRequest) {
   const isAuthRoute =
     request.nextUrl.pathname === "/admin/login" ||
     request.nextUrl.pathname === "/admin/signup" ||
-    request.nextUrl.pathname === "/admin/confirm";
+    request.nextUrl.pathname.startsWith("/admin/auth");
 
   if (isProtectedRoute) {
     const {
@@ -59,7 +59,7 @@ export async function updateSession(request: NextRequest) {
     } = await supabase.auth.getUser();
 
     if (isAuthRoute) {
-      if (user) {
+      if (user && request.nextUrl.pathname !== "/admin/auth/reset-password") {
         return NextResponse.redirect(
           new URL("/admin", process.env.NEXT_PUBLIC_BASE_URL),
         );

@@ -61,3 +61,33 @@ export const logOutAction = async () => {
     return handleError(err);
   }
 };
+
+export const resetPasswordAction = async (email: string) => {
+  try {
+    const { auth } = await createClient();
+
+    const { error } = await auth.resetPasswordForEmail(email, {
+      redirectTo: `http://localhost:3000/account/update-password`,
+    });
+
+    if (error) throw error;
+
+    return { data: null, errorMessage: null };
+  } catch (err) {
+    return handleError(err);
+  }
+};
+
+export const updatePasswordAction = async (password: string) => {
+  try {
+    const { auth } = await createClient();
+
+    const { error } = await auth.updateUser({ password });
+
+    if (error) throw error;
+
+    return { data: null, errorMessage: null };
+  } catch (err) {
+    return handleError(err);
+  }
+};

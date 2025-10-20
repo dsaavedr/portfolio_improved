@@ -104,7 +104,7 @@ const LogInForm = () => {
             Log in with Google
           </Button>
           <Link
-            href="#"
+            href="/admin/auth/reset-password"
             className="inline-block w-full text-center text-sm underline"
             prefetch={false}
           >
