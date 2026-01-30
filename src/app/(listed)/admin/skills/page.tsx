@@ -1,8 +1,13 @@
 import { getSkills } from "@/actions/skills";
 import SkillsTable from "@/components/SkillsTable/SkillsTable";
 import { Prisma } from "@prisma/client";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { toast } from "sonner";
+
+export const metadata: Metadata = {
+  title: "Skills",
+};
 
 const page = async () => {
   const skillsResult = await getSkills();
