@@ -5,7 +5,10 @@ import { Toaster } from "@/components/ui/sonner";
 import ConfirmationDialog from "@/components/ConfirmationDialog";
 
 export const metadata: Metadata = {
-  title: "Daniel's Portfolio",
+  title: {
+    template: "%s | Daniel's Portfolio",
+    default: "Home",
+  },
   description:
     "Daniel is a Full-Stack developer, and in his portfolio he showcases some of his personal projects and his love of coding.",
 };

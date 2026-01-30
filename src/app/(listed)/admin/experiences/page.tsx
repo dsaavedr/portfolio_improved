@@ -3,6 +3,11 @@ import { getExperiences } from "@/actions/experiences";
 import { Prisma } from "@prisma/client";
 import { toast } from "sonner";
 import ExperiencesTable from "@/components/ExperiencesTable/ExperiencesTable";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Experiences",
+};
 
 const page = async () => {
   const experiencesResult = await getExperiences();
